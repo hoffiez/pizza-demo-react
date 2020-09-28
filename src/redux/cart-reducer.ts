@@ -15,7 +15,7 @@ export interface ICartItem{
 export interface ICartTotals {
     tax_value: string,
     subtotal: string,
-    total: string
+    sum_total: string
 }
 
 export interface ICartState extends ICartTotals{
@@ -31,30 +31,8 @@ let initialCartState: ICartState = {
     subtotal: '',
     tax_value: '',
     tax_percentage: 19,
-    total: '',
+    sum_total: '',
     loading: false
-};
-
-const roundNumber = (num: number): number => {
-    return Math.round((num + Number.EPSILON) * 100) / 100;
-};
-
-const getCartTotals = (prevState: ICartState, updatedItems: ICartItem[]): ICartTotals => {
-    let subtotal = 0;
-
-    updatedItems.forEach(item => {
-        subtotal += item.subtotal;
-    });
-
-    const taxValue = roundNumber(subtotal * prevState.tax_percentage / 100);
-    const delivery = 5;
-    const total = subtotal + taxValue + delivery;
-
-    return {
-        subtotal: subtotal.toFixed(2),
-        tax_value: taxValue.toFixed(2),
-        total: total.toFixed(2)
-    }
 };
 
 const cartReducer = (state: ICartState = initialCartState, action: AnyAction): ICartState => {
@@ -86,8 +64,7 @@ const cartReducer = (state: ICartState = initialCartState, action: AnyAction): I
 
                     return {
                         ...item,
-                        quantity: newQuantity,
-                        subtotal: roundNumber(+item.price * newQuantity)
+                        quantity: newQuantity
                     }
                 }
 
@@ -107,8 +84,7 @@ const cartReducer = (state: ICartState = initialCartState, action: AnyAction): I
 
             return {
                 ...state,
-                products: updatedItems,
-                ...getCartTotals(state, updatedItems)
+                products: updatedItems
             };
         }
         case "cart/removeItem": {
@@ -124,7 +100,7 @@ const cartReducer = (state: ICartState = initialCartState, action: AnyAction): I
     }
 };
 
-export const pushNewState = (newState: ICartState): IDispatcher => ({
+export const pushNewState = (newState: Partial<ICartState>): IDispatcher => ({
     type: "cart/pushState",
     payload: {newState}
 });
@@ -144,6 +120,7 @@ const setCartItemQuantity = (itemToUpdate: ICartItem | IProduct, newQuantity: nu
 export const removeItemFromCart = (removeItemId: number) => {
     return async (dispatch: any) => {
         dispatch(removeFromCart(removeItemId));
+        await dispatch(updateCart());
         updateCartStorage();
     }
 };
@@ -152,11 +129,26 @@ export const setItemQuantity = (updatedItem: ICartItem | IProduct, newQuantity: 
     return async (dispatch: any, getState: any) => {
         dispatch(setCartItemQuantity(updatedItem, newQuantity));
 
-        const response = await Api.calculateCart(getState().cart);
-        console.log(response);
-        dispatch(pushNewState(response));
+        //if dispatched from the Menu page, we don't make the request
+        if (newQuantity !== null) {
+            await dispatch(updateCart());
+        }
 
         dispatch(updateCartStorage());
+    }
+};
+
+export const updateCart = () => {
+    return async (dispatch: any, getState: any) => {
+        dispatch(pushNewState({loading: true}))
+        const response = await Api.calculateCart({
+            ...getState().cart,
+            currency: getState().user.selected_currency
+        });
+        dispatch(pushNewState( {
+            ...response,
+            loading: false
+        }));
     }
 };
 

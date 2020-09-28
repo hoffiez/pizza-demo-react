@@ -1,5 +1,5 @@
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../redux/redux-store";
 import Container from "reactstrap/lib/Container";
 import Col from "reactstrap/lib/Col";
@@ -9,10 +9,17 @@ import {useHistory} from "react-router";
 import {RoutesCreator} from "../../../utils/RoutesCreator";
 import {CartTotals} from "./CartTotals";
 import {CartItemsList} from "./CartItemsList";
+import {updateCart} from "../../../redux/cart-reducer";
 
 export const CartPage = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
+
     const cart = useSelector((state: RootState) => state.cart);
+
+    useEffect(() => {
+        dispatch(updateCart());
+    }, []);
 
     return (
         <Container className="small">

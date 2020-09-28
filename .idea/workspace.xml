@@ -2,43 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="719dee6e-aed2-434f-900d-f5fd9014533d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/api/api.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/interfaces/interfaces.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/interfaces/order.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/interfaces/product.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/interfaces/user.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/cart-reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/redux-store.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/user-reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/FormBuilder/FormBuilder.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/FormBuilder/FormBuilder.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/MyFormik/MyFormik.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/Preloader/Preloader.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/ProductCard/ProductCard.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/ProductCard/ProductCard.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/UserNavigation/UserNavigation.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/Lang.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/RoutesCreator.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/Strings.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/pages/Cart/CartItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/pages/Cart/CartItemsList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/pages/Cart/CartPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/pages/Cart/CartTotals.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/pages/Catalog/Catalog.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/pages/Checkout/Checkout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/pages/OrdersHistory/OrdersHistory.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/pages/OrdersHistory/OrdersItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/pages/SignIn/SignIn.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/pages/SignUp/SignUpPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/partials/Footer/Footer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/partials/Header/Header.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/partials/Header/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/cart-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/cart-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/pages/Cart/CartPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/pages/Cart/CartPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/pages/Cart/CartTotals.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/pages/Cart/CartTotals.tsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/api/api.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="26" column="23" lean-forward="true" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+            <state relative-caret-position="422">
+              <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
               </folding>
@@ -90,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/redux/cart-reducer.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="151" column="52" lean-forward="true" selection-start-line="151" selection-start-column="52" selection-end-line="151" selection-end-column="52" />
+            <state relative-caret-position="254">
+              <caret line="143" column="44" lean-forward="true" selection-start-line="143" selection-start-column="44" selection-end-line="143" selection-end-column="44" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -114,10 +80,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/pages/Cart/CartPage.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+            <state relative-caret-position="285">
+              <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -220,7 +186,6 @@
         <option value="$PROJECT_DIR$/src/views/pages/Catalog/Catalog.tsx" />
         <option value="$PROJECT_DIR$/src/ui/ProductCard/ProductCard.tsx" />
         <option value="$PROJECT_DIR$/src/views/pages/Cart/CartItemsList.tsx" />
-        <option value="$PROJECT_DIR$/src/views/pages/Cart/CartPage.tsx" />
         <option value="$PROJECT_DIR$/src/views/pages/Cart/OrderTotals.tsx" />
         <option value="$PROJECT_DIR$/src/App.tsx" />
         <option value="$PROJECT_DIR$/src/utils/RoutesCreator.ts" />
@@ -239,6 +204,7 @@
         <option value="$PROJECT_DIR$/src/views/pages/Checkout/Checkout.tsx" />
         <option value="$PROJECT_DIR$/src/views/pages/Cart/CartItem.tsx" />
         <option value="$PROJECT_DIR$/src/api/api.ts" />
+        <option value="$PROJECT_DIR$/src/views/pages/Cart/CartPage.tsx" />
         <option value="$PROJECT_DIR$/src/redux/cart-reducer.ts" />
       </list>
     </option>
@@ -414,6 +380,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/views/pages/Checkout" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -455,16 +422,15 @@
       <updated>1601541685411</updated>
       <workItem from="1601541687019" duration="1493000" />
       <workItem from="1601543273317" duration="41459000" />
-      <workItem from="1601794328004" duration="16962000" />
+      <workItem from="1601794328004" duration="18641000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59914000" />
+    <option name="totallyTimeSpent" value="61593000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17651007" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -482,7 +448,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="TypeScript" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="12" weight="0.060906515" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" visible="true" weight="0.09206799" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -798,16 +764,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/pages/Cart/CartPage.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/interfaces/order.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="277">
@@ -825,22 +781,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/api.ts">
+    <entry file="file://$PROJECT_DIR$/src/views/pages/Cart/CartPage.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="26" column="23" lean-forward="true" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+        <state relative-caret-position="285">
+          <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
           <folding>
-            <element signature="e#0#54#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/redux/cart-reducer.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="151" column="52" lean-forward="true" selection-start-line="151" selection-start-column="52" selection-end-line="151" selection-end-column="52" />
+        <state relative-caret-position="254">
+          <caret line="143" column="44" lean-forward="true" selection-start-line="143" selection-start-column="44" selection-end-line="143" selection-end-column="44" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/api.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#54#0" expanded="true" />
           </folding>
         </state>
       </provider>

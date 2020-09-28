@@ -14,7 +14,7 @@ export const CartTotals = () => {
             <div>Subtotal: {cart.subtotal} {currencySymbol}</div>
             <div>VAT: {cart.tax_value} {currencySymbol}</div>
             <div>Delivery: {cart.delivery_price} {currencySymbol}</div>
-            <div>Total: <b>{cart.total} {currencySymbol}</b></div>
+            <div>Total: <b>{cart.sum_total} {currencySymbol}</b></div>
         </div>
     )
 };
