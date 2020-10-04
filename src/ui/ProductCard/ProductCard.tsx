@@ -8,6 +8,7 @@ import classes from "./ProductCard.module.scss";
 import {truncateString} from "../../utils/Strings";
 import {useDispatch} from "react-redux";
 import {setItemQuantity} from "../../redux/cart-reducer";
+import {Lang} from "../../utils/Lang";
 
 const useStyles = makeStyles({
     root: {
@@ -48,7 +49,7 @@ export const ProductCard = ({product}: IProductCard) => {
                     {product.description !== null && truncateString(product.description, 100)}
                 </Typography>
                 <Typography variant="h5" component="div" className="mt-2">
-                    {product.price}$
+                    {product.price} {Lang.currency[product.currency]}
                 </Typography>
             </CardContent>
             <CardActions>

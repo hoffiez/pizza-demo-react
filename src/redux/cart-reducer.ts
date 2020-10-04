@@ -2,6 +2,7 @@ import {AnyAction} from "redux";
 import {IDispatcher} from "../interfaces/interfaces";
 import {IProduct} from "../interfaces/product";
 import {Api} from "../api/api";
+import {CurrencyType} from "./user-reducer";
 
 export interface ICartItem{
     id: number,
@@ -9,11 +10,12 @@ export interface ICartItem{
     price: string,
     quantity: number,
     img_url: string | null
-    subtotal: number
+    subtotal: number,
+    currency: CurrencyType
 }
 
 export interface ICartTotals {
-    tax_value: string,
+    tax: string,
     subtotal: string,
     sum_total: string
 }
@@ -29,7 +31,7 @@ let initialCartState: ICartState = {
     products: [],
     delivery_price: 5,
     subtotal: '',
-    tax_value: '',
+    tax: '',
     tax_percentage: 19,
     sum_total: '',
     loading: false
@@ -78,7 +80,8 @@ const cartReducer = (state: ICartState = initialCartState, action: AnyAction): I
                     price: itemToUpdate.price,
                     quantity: 1,
                     img_url: itemToUpdate.img_url,
-                    subtotal: +itemToUpdate.price
+                    subtotal: +itemToUpdate.price,
+                    currency: itemToUpdate.currency
                 })
             }
 

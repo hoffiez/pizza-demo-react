@@ -16,10 +16,11 @@ export const CartPage = () => {
     const dispatch = useDispatch();
 
     const cart = useSelector((state: RootState) => state.cart);
+    const currency = useSelector((state: RootState) => state.user.selected_currency);
 
     useEffect(() => {
         dispatch(updateCart());
-    }, []);
+    }, [currency]);
 
     return (
         <Container className="small">

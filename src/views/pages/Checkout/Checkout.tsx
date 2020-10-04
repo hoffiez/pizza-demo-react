@@ -21,7 +21,7 @@ import {ICheckoutPostData} from "../../../interfaces/order";
 import {pushNewUserState} from "../../../redux/user-reducer";
 import {RoutesCreator} from "../../../utils/RoutesCreator";
 import {Link} from "react-router-dom";
-import {clearCart} from "../../../redux/cart-reducer";
+import {clearCart, updateCart} from "../../../redux/cart-reducer";
 
 export const Checkout = () => {
     const history = useHistory();
@@ -34,6 +34,7 @@ export const Checkout = () => {
 
     const cart = useSelector((state: RootState) => state.cart);
     const user = useSelector((state: RootState) => state.user);
+    const currency = useSelector((state: RootState) => state.user.selected_currency);
 
     const CheckoutSchema = Yup.object().shape({
         name:  Yup.string()
@@ -106,13 +107,10 @@ export const Checkout = () => {
         }
     };
 
+
     useEffect(() => {
-
-        // if (cart.products.length === 0) {
-        //     history.push(RoutesCreator.home());
-        // }
-
-    }, []);
+        dispatch(updateCart());
+    }, [currency]);
 
     const initialValues: Partial<ICheckoutPostData> = {
             name: user.name,
