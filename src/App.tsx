@@ -1,21 +1,21 @@
 import React, {useEffect} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {Header} from "./views/partials/Header/Header";
 import {Route} from "react-router";
 import {RoutesCreator} from "./utils/RoutesCreator";
 import {Catalog} from "./views/pages/Catalog/Catalog";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {pushCartStateFromStorage} from "./redux/cart-reducer";
 import {CartPage} from "./views/pages/Cart/CartPage";
 import {SignIn} from "./views/pages/SignIn/SignIn";
 import {SignUpPage} from "./views/pages/SignUp/SignUpPage";
 import {Checkout} from "./views/pages/Checkout/Checkout";
 import {Footer} from "./views/partials/Footer/Footer";
-import {authenticateUser, CurrencyType, pushNewUserState} from "./redux/user-reducer";
+import {authenticateUser} from "./redux/user-reducer";
 import axios from "axios";
-import {RootState} from "./redux/redux-store";
 import {OrdersHistory} from "./views/pages/OrdersHistory/OrdersHistory";
+import {pushNewSettingsState} from "./redux/settings-reducer";
+import {CurrencyType} from "./interfaces/interfaces";
 
 declare global {
     interface Window {
@@ -28,14 +28,16 @@ window.axios.defaults.baseURL = "http://pizza.local/api/";
 
 function App() {
     const dispatch = useDispatch();
-    const user = useSelector((state: RootState) => state.user);
 
     const setCurrency = () => {
-        const currency: any = window.localStorage.getItem('currency');
-        const selectedCurrency: CurrencyType = currency !== null ? currency : 'USD';
-        dispatch(pushNewUserState({
-            selected_currency: selectedCurrency
-        }));
+        const currency = window.localStorage.getItem('currency') as CurrencyType;
+
+        if (currency !== null) {
+            dispatch(pushNewSettingsState({
+                currency: currency,
+                currency_status: "loaded"
+            }));
+        }
     };
 
     useEffect(() => {

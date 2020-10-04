@@ -5,9 +5,9 @@ import {Lang} from "../../../utils/Lang";
 
 export const CartTotals = () => {
     const cart = useSelector((state: RootState) => state.cart);
-    const user = useSelector((state: RootState) => state.user);
+    const currency = useSelector((state: RootState) => state.settings.currency);
 
-    const currencySymbol = Lang.currency[user.selected_currency || 'USD'];
+    const currencySymbol = Lang.currency[currency];
 
     return (
         <div className="d-flex align-items-end flex-column totals">

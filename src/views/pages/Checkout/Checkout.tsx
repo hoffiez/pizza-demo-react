@@ -24,7 +24,6 @@ import {Link} from "react-router-dom";
 import {clearCart, updateCart} from "../../../redux/cart-reducer";
 
 export const Checkout = () => {
-    const history = useHistory();
     const dispatch = useDispatch();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,7 +33,7 @@ export const Checkout = () => {
 
     const cart = useSelector((state: RootState) => state.cart);
     const user = useSelector((state: RootState) => state.user);
-    const currency = useSelector((state: RootState) => state.user.selected_currency);
+    const currency = useSelector((state: RootState) => state.settings.currency);
 
     const CheckoutSchema = Yup.object().shape({
         name:  Yup.string()
@@ -64,7 +63,7 @@ export const Checkout = () => {
         try {
             const response = await Api.createOrder({
                 ...values,
-                currency: user.selected_currency,
+                currency: currency,
                 signup: user.authenticated ? false : signUp,
                 products: cart.products.map(item => {
                     return {

@@ -3,7 +3,6 @@ import {IDispatcher} from "../interfaces/interfaces";
 import {ISignInCredentials, ISignUpCredentials, IUser} from "../interfaces/user";
 import {Api} from "../api/api";
 
-export type CurrencyType = "USD" | "EUR" | null;
 
 interface ITokenData{
     auth_token: string,
@@ -18,16 +17,14 @@ interface IUserDataStorage {
 }
 
 interface IUserState extends IUser{
-    authenticated: boolean | null,
-    selected_currency: CurrencyType
+    authenticated: boolean | null
 }
 
 let initialUserState: IUserState = {
     authenticated: null,
     id: 0,
     email: "",
-    name: "",
-    selected_currency: null
+    name: ""
 };
 
 const userReducer = (state: IUserState = initialUserState, action: AnyAction): IUserState => {
@@ -58,16 +55,6 @@ export const pushNewUserState = (newState: Partial<IUserState>): IDispatcher => 
     type: "user/pushState",
     payload: {newState}
 });
-
-export const switchCurrency = (newCurrency: CurrencyType) => {
-    return async (dispatch: any) => {
-        if (newCurrency === null) return;
-        await dispatch(pushNewUserState({
-            selected_currency: newCurrency
-        }));
-        window.localStorage.setItem('currency', newCurrency);
-    }
-};
 
 const getUserDataFromStorage = () => {
     let userData: IUserDataStorage;

@@ -9,7 +9,6 @@ interface IOrdersItem {
 }
 
 export const OrdersItem = ({order}: IOrdersItem) => {
-
     const currencySymbol = Lang.currency[order.currency];
 
     return (

@@ -1,5 +1,4 @@
-import {CurrencyType} from "../redux/user-reducer";
-
+import {CurrencyType} from "./interfaces";
 
 export interface IOrder {
     id: number,

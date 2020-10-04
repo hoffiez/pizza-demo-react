@@ -7,13 +7,17 @@ import Badge from "@material-ui/core/Badge";
 import {Link, useHistory} from "react-router-dom";
 import {RoutesCreator} from "../../utils/RoutesCreator";
 import Button from "@material-ui/core/Button";
-import {CurrencyType, signOut, switchCurrency} from "../../redux/user-reducer";
+import {signOut} from "../../redux/user-reducer";
+import {switchCurrency} from "../../redux/settings-reducer";
+import {CurrencyType} from "../../interfaces/interfaces";
 
 export const UserNavigation = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
+
     const cart = useSelector((state: RootState) => state.cart);
     const user = useSelector((state: RootState) => state.user);
-    const history = useHistory();
+    const settings = useSelector((state: RootState) => state.settings);
 
     let countItems = 0;
 
@@ -25,7 +29,7 @@ export const UserNavigation = () => {
         <div className="d-flex align-items-center">
             <FormControl>
                 <Select
-                    value={user.selected_currency}
+                    value={settings.currency}
                     onChange={(e) => dispatch(switchCurrency(e.target.value as CurrencyType))}
                 >
                     <MenuItem value="USD">USD</MenuItem>

@@ -9,19 +9,20 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/redux-store";
 
 export const Catalog = () => {
-    const user = useSelector((state: RootState) => state.user);
+    const settings = useSelector((state: RootState) => state.settings);
 
     const [products, setProducts] = useState<IProduct[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (user.selected_currency === null) return;
+        if (settings.currency_status === 'idle') return;
+
         (async() => {
-            const response = await Api.getProducts({currency: user.selected_currency});
+            const response = await Api.getProducts({currency: settings.currency});
             setProducts(response.data);
             setLoading(false);
         })()
-    }, [user.selected_currency]);
+    }, [settings.currency_status, settings.currency]);
 
 
     return (

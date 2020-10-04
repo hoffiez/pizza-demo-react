@@ -16,7 +16,7 @@ export const CartPage = () => {
     const dispatch = useDispatch();
 
     const cart = useSelector((state: RootState) => state.cart);
-    const currency = useSelector((state: RootState) => state.user.selected_currency);
+    const currency = useSelector((state: RootState) => state.settings.currency);
 
     useEffect(() => {
         dispatch(updateCart());

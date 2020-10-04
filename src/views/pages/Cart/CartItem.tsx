@@ -4,9 +4,8 @@ import Col from "reactstrap/lib/Col";
 import {ICartItem, removeItemFromCart, setItemQuantity} from "../../../redux/cart-reducer";
 import {Grow, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {Lang} from "../../../utils/Lang";
-import {RootState} from "../../../redux/redux-store";
 
 interface ICartPageItem{
     item: ICartItem
@@ -15,9 +14,7 @@ interface ICartPageItem{
 export const CartItem = ({item} : ICartPageItem) => {
     const dispatch = useDispatch();
 
-    const user = useSelector((state: RootState) => state.user);
-
-    const currencySymbol = Lang.currency[user.selected_currency || 'USD'];
+    const currencySymbol = Lang.currency[item.currency];
 
     return (
       <Row className={"px-0 mb-2 pb-2 d-flex align-items-center border-bottom"}>

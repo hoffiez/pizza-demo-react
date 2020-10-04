@@ -1,8 +1,7 @@
 import {AnyAction} from "redux";
-import {IDispatcher} from "../interfaces/interfaces";
+import {CurrencyType, IDispatcher} from "../interfaces/interfaces";
 import {IProduct} from "../interfaces/product";
 import {Api} from "../api/api";
-import {CurrencyType} from "./user-reducer";
 
 export interface ICartItem{
     id: number,
@@ -146,7 +145,7 @@ export const updateCart = () => {
         dispatch(pushNewState({loading: true}))
         const response = await Api.calculateCart({
             ...getState().cart,
-            currency: getState().user.selected_currency
+            currency: getState().settings.currency
         });
         dispatch(pushNewState( {
             ...response,
