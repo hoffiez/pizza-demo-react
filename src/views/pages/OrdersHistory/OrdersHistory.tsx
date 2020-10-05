@@ -28,10 +28,12 @@ export const OrdersHistory = () => {
     }, [user.authenticated]);
 
     return (
-        <Container className="small mt-3">
+        <Container className="width-md mt-3">
             <h3 className="mb-3">My Orders</h3>
             {loading ? (
-                <CircularProgress color="secondary" style={{margin: 'auto'}}/>
+                <div className="d-flex  justify-content-center">
+                    <CircularProgress color="secondary"/>
+                </div>
             ) : orders.length === 0 ? (
                 <h5>You don't have orders yet</h5>
             ) : orders.map((order) => (

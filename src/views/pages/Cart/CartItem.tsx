@@ -1,7 +1,13 @@
 import React from "react";
 import Row from "reactstrap/lib/Row";
 import Col from "reactstrap/lib/Col";
-import {ICartItem, removeItemFromCart, setItemQuantity} from "../../../redux/cart-reducer";
+import {
+    ICartItem,
+    removeItemFromCart, setCartItemQuantity,
+    setItemQuantity,
+    updateCart,
+    updateCartStorage
+} from "../../../redux/cart-reducer";
 import {Grow, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 import {useDispatch} from "react-redux";
@@ -53,12 +59,10 @@ export const CartItem = ({item} : ICartPageItem) => {
                               {item.quantity > 1 && (
                                   <Grow  in={item.quantity > 1}>
                                       <div>
-                                          {item.price} $ per item
+                                          {item.price}{currencySymbol} per item
                                       </div>
                                   </Grow>
                               )}
-
-
                           </Col>
                           <Col lg={6} md={4} sm={4} xs={5}>
                               <h5>{item.subtotal} {currencySymbol}</h5>

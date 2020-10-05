@@ -2,10 +2,10 @@ import React from 'react'
 import ContentLoader from 'react-content-loader'
 
 const Preloader = ({
-                          width = 1366,
-                          heading = { width: 140, height: 24 },
+                          width = 1140,
+                          heading = { width: 140, height: 0 },
                           row = 2,
-                          column = 5,
+                          column = 4,
                           padding = 12,
                           borderRadius = 4,
                           ...props

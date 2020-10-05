@@ -16,24 +16,27 @@ import {CartTotals} from "../Cart/CartTotals";
 import {CartItemsList} from "../Cart/CartItemsList";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../redux/redux-store";
-import {useHistory} from "react-router";
 import {ICheckoutPostData} from "../../../interfaces/order";
-import {pushNewUserState} from "../../../redux/user-reducer";
+import {pushNewUserState, signUp} from "../../../redux/user-reducer";
 import {RoutesCreator} from "../../../utils/RoutesCreator";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {clearCart, updateCart} from "../../../redux/cart-reducer";
+import {ISignUpCredentials} from "../../../interfaces/user";
+import {LoaderSpinner} from "../../../ui/LoaderSpinner/LoaderSpinner";
 
 export const Checkout = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [signUp, setSignUp] = useState(true);
+    const [createAccount, setCreateAccount] = useState(true);
     const [orderReceivedMessage, setOrderReceivedMessage] = useState<any>(null);
 
 
     const cart = useSelector((state: RootState) => state.cart);
     const user = useSelector((state: RootState) => state.user);
     const currency = useSelector((state: RootState) => state.settings.currency);
+
 
     const CheckoutSchema = Yup.object().shape({
         name:  Yup.string()
@@ -48,23 +51,40 @@ export const Checkout = () => {
         recipient_city:  Yup.string()
             .required('City is required'),
         recipient_address:  Yup.string()
-            .required('Address is required'),
-        // password: Yup.string()
-        //     .min(8,'The password must contain at least 8 characters')
-        //     .required('Password is required'),
-        // password_confirmation: Yup.string()
-        //     .required('Password is required')
-        //     .oneOf([Yup.ref('password')], 'Passwords mismatch'),
-        // pd_agreement: Yup.bool()
-        //     .oneOf([true], 'You must agree with the Privacy Policy')
+            .required('Address is required')
     });
+    // password: Yup.string()
+    //     .min(8,'The password must contain at least 8 characters')
+    //     .required('Password is required'),
+    // password_confirmation: Yup.string()
+    //     .required('Password is required')
+    //     .oneOf([Yup.ref('password')], 'Passwords mismatch'),
+    // pd_agreement: Yup.bool()
+    //     .oneOf([true], 'You must agree with the Privacy Policy')
 
-    const handleSubmit = async (values: ICheckoutPostData, {setFieldError, setStatus, resetForm, setSubmitting} : any) => {
+    const handleSubmit = async (values: ICheckoutPostData & ISignUpCredentials, {} : any) => {
         try {
+            setIsSubmitting(true);
+
+            if (createAccount && !user.authenticated) {
+                await dispatch(signUp({
+                    name: values.name,
+                    email: values.email,
+                    password: values.password,
+                    password_confirmation: values.password_confirmation,
+                    pd_agreement: values.pd_agreement
+                }));
+            }
+
             const response = await Api.createOrder({
-                ...values,
+                name: values.name,
+                email: values.email,
+                recipient_country: values.recipient_country,
+                recipient_state: values.recipient_state,
+                recipient_city: values.recipient_city,
+                recipient_address: values.recipient_address,
+                payment_method: values.payment_method,
                 currency: currency,
-                signup: user.authenticated ? false : signUp,
                 products: cart.products.map(item => {
                     return {
                         id: item.id,
@@ -79,7 +99,7 @@ export const Checkout = () => {
                 }));
             }
 
-            if (response.hasOwnProperty('token') || user.authenticated) {
+            if (createAccount || user.authenticated) {
                 setOrderReceivedMessage(
                     <>
                         Thank you for the order! We will contact you soon. You can view your orders in the
@@ -111,7 +131,15 @@ export const Checkout = () => {
         dispatch(updateCart());
     }, [currency]);
 
-    const initialValues: Partial<ICheckoutPostData> = {
+    useEffect(() => {
+        if (!cart.loading && cart.products.length === 0 && orderReceivedMessage === null) {
+            history.push(RoutesCreator.home());
+        }
+    }, [cart.loading, cart.products]);
+
+
+
+    const initialValues: Partial<ICheckoutPostData & ISignUpCredentials> = {
             name: user.name,
             email: user.email,
             recipient_country: '',
@@ -121,17 +149,19 @@ export const Checkout = () => {
             payment_method: 'cash_delivery',
             password: '',
             password_confirmation: '',
+            pd_agreement: false
     };
 
-
     return (
-        <Container className="small mt-3">
+        <Container className="width-md mt-3 position-relative">
             <h3 className="mb-5">Checkout</h3>
             {
                 orderReceivedMessage === null ? (
                     <>
+                        {isSubmitting && <LoaderSpinner/>}
                         <CartItemsList />
                         <div className="mt-5">
+
                             <MyFormik
                                 initialValues={initialValues}
                                 onSubmit={handleSubmit}
@@ -148,7 +178,7 @@ export const Checkout = () => {
                                                     onChange={handleChange}
                                                     variant="outlined"
                                                     fullWidth
-                                                    defaultValue={values['name']}
+                                                    value={values['name']}
                                                     {...errors.name && touched.name &&
                                                     {error: true, helperText: errors.name}}
                                                 />
@@ -161,6 +191,7 @@ export const Checkout = () => {
                                                     onChange={handleChange}
                                                     variant="outlined"
                                                     fullWidth
+                                                    value={values['email']}
                                                     {...errors.email && touched.email &&
                                                     {error: true, helperText: errors.email}}
                                                 />
@@ -228,9 +259,9 @@ export const Checkout = () => {
                                                             control={
                                                                 <Checkbox
                                                                     name="signup"
-                                                                    checked={signUp}
+                                                                    checked={createAccount}
                                                                     value={true}
-                                                                    onChange={(e: any) => setSignUp(e.target.checked)}
+                                                                    onChange={(e: any) => setCreateAccount(e.target.checked)}
                                                                 />
                                                             }
                                                             label={(
@@ -241,7 +272,7 @@ export const Checkout = () => {
                                                         />
                                                     </Col>
                                                 </Row>
-                                                {signUp && (
+                                                {createAccount && (
                                                     <>
                                                         <Row className="justify-content-between">
                                                             <Col lg={12}>

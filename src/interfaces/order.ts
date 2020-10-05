@@ -27,7 +27,7 @@ export interface IOrderProduct {
     }
 }
 
-export interface ICheckoutPostData{
+export interface ICheckoutPostData {
     products: {
         id: number, quantity: number
     }[],
@@ -37,9 +37,6 @@ export interface ICheckoutPostData{
     recipient_state: string,
     recipient_city: string,
     recipient_address: string,
-    payment_method: 'cash_delivery'  | 'card_online',
-    password: string,
-    password_confirmation: string,
+    payment_method: 'cash_delivery'  | 'card_online'
     currency: CurrencyType,
-    signup: boolean
 }

@@ -23,8 +23,10 @@ export interface ICartState extends ICartTotals{
     products: ICartItem[],
     tax_percentage: number,
     delivery_price: number,
-    loading: boolean
+    loading: boolean,
+    timeout_id: any
 }
+
 
 let initialCartState: ICartState = {
     products: [],
@@ -33,7 +35,8 @@ let initialCartState: ICartState = {
     tax: '',
     tax_percentage: 19,
     sum_total: '',
-    loading: false
+    loading: false,
+    timeout_id: 0
 };
 
 const cartReducer = (state: ICartState = initialCartState, action: AnyAction): ICartState => {
@@ -113,7 +116,7 @@ const removeFromCart = (removeItemId: number): IDispatcher => ({
     payload: {removeItemId}
 });
 
-const setCartItemQuantity = (itemToUpdate: ICartItem | IProduct, newQuantity: number | null = null): IDispatcher => ({
+export  const setCartItemQuantity = (itemToUpdate: ICartItem | IProduct, newQuantity: number | null = null): IDispatcher => ({
     type: "cart/setItemQuantity",
     payload: { itemToUpdate, newQuantity }
 });
@@ -133,7 +136,12 @@ export const setItemQuantity = (updatedItem: ICartItem | IProduct, newQuantity: 
 
         //if dispatched from the Menu page, we don't make the request
         if (newQuantity !== null) {
-            await dispatch(updateCart());
+            //clear previous timeout and create new timeout
+            clearTimeout(getState().cart.timeout_id);
+            const newTimeoutId = setTimeout(async () => {
+                await dispatch(updateCart());
+            }, 1000);
+            dispatch(pushNewState({timeout_id: newTimeoutId}))
         }
 
         dispatch(updateCartStorage());
@@ -166,7 +174,7 @@ export const pushCartStateFromStorage = () => {
         const cartData = localStorage.getItem('cart_data');
 
         if (cartData) {
-            dispatch(pushNewState(JSON.parse(cartData)));
+            dispatch(pushNewState( JSON.parse(cartData)));
         }
     }
 };

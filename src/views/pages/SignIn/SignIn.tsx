@@ -51,7 +51,7 @@ export const SignIn = () => {
 
     return (
         <Container className="mt-3">
-            <h3>Sign In</h3>
+            <h3 className="text-center">Sign In</h3>
             <div style={{width: '400px', margin: 'auto'}}>
                 <MyFormik
                     initialValues={{

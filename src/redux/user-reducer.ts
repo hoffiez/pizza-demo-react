@@ -64,6 +64,14 @@ const getUserDataFromStorage = () => {
     return userData;
 };
 
+const getTokenDataFromStorage = () => {
+    let tokenData: ITokenData;
+    const tokenDataString =  window.localStorage.getItem('token_data');
+    if (tokenDataString === null) return null;
+    tokenData = JSON.parse(tokenDataString);
+    return tokenData;
+};
+
 const setApiAuthToken = (token: string) => {
     window.axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
@@ -71,55 +79,39 @@ const setApiAuthToken = (token: string) => {
 export const authenticateUser = () => {
     return async (dispatch: any) => {
         const userData = getUserDataFromStorage();
+        const tokenData = getTokenDataFromStorage();
+        console.log(userData);
+        console.log(tokenData);
 
-        if (userData === null || userData.tokenData === undefined) {
+        if (tokenData === null) {
             dispatch(pushNewUserState({
                 authenticated: false
             }));
-        } else if (
-            userData.tokenData.hasOwnProperty('auth_token') &&
-            userData.hasOwnProperty('user_id') &&
-            userData.hasOwnProperty('email') &&
-            userData.hasOwnProperty('name')
-        ) {
-            setApiAuthToken(userData.tokenData.auth_token);
-            dispatch(pushNewUserState({
-                ...userData,
-                authenticated: true
-            }));
-            dispatch(updateUserData(userData));
         } else {
-            setApiAuthToken(userData.tokenData.auth_token);
-            dispatch(updateUserData(userData));
+            if (userData !== null) {
+                dispatch(pushNewUserState({
+                    ...userData,
+                    authenticated: true
+                }));
+            } else {
+                dispatch(pushNewUserState({
+                    authenticated: true
+                }));
+            }
+
+
+            setApiAuthToken(tokenData.auth_token);
+            dispatch(updateUserData());
         }
     }
 };
 
 
-export const fetchUser = (): any => {
-    return async (dispatch: any) => {
-        const response = await Api.fetchUser();
-        dispatch(pushNewUserState(response));
-        return response;
-    }
-};
-
-export const signOut = () => {
-    return async (dispatch: any) => {
-        try {
-            await Api.signOut();
-            dispatch(clearAuthData());
-        } catch (error){}
-    }
-};
 
 export const signIn = (credentials: ISignInCredentials) : any => {
     return async (dispatch: any) => {
         const response = await Api.signIn(credentials);
-        window.localStorage.setItem('user_data', JSON.stringify({
-            tokenData: response
-        }));
-
+        saveTokenToStorage(response);
         dispatch(authenticateUser());
     }
 };
@@ -127,27 +119,34 @@ export const signIn = (credentials: ISignInCredentials) : any => {
 export const signUp = (credentials: ISignUpCredentials) : any => {
     return async (dispatch: any) => {
         const response = await Api.signUp(credentials);
-        window.localStorage.setItem('user_data', JSON.stringify({
-            tokenData: response
-        }));
+        saveUserDataToStorage(response.user);
+        saveTokenToStorage(response.token);
+        dispatch(authenticateUser());
     }
 };
 
-export const updateUserData = (oldUserData: IUserDataStorage) => {
+const saveTokenToStorage = (tokenData: ITokenData) => {
+    window.localStorage.setItem('token_data', JSON.stringify(tokenData));
+};
+
+const saveUserDataToStorage = (user: IUser) => {
+    const userDataToSave = {
+        user_id: user.id,
+        email: user.email,
+        name: user.name,
+    };
+    window.localStorage.setItem('user_data', JSON.stringify(userDataToSave));
+
+    return userDataToSave;
+};
+
+export const updateUserData = () => {
     return async (dispatch: any) => {
         try {
-            const user: IUser = await dispatch(fetchUser());
-            const newUserData =  {
-                ...oldUserData,
-                user_id: user.id,
-                email: user.email,
-                name: user.name,
-                authenticated: true
-            };
-
-            window.localStorage.setItem('user_data', JSON.stringify(newUserData));
+            const user: IUser = await Api.fetchUser();
+            const userData = saveUserDataToStorage(user);
             dispatch(pushNewUserState({
-                ...newUserData
+                ...userData
             }));
         } catch (error){
             dispatch(clearAuthData());
@@ -158,7 +157,17 @@ export const updateUserData = (oldUserData: IUserDataStorage) => {
 const clearAuthData = () => {
     return async (dispatch: any) => {
         window.localStorage.removeItem('user_data');
+        window.localStorage.removeItem('token_data');
         dispatch(pushInitialState());
+    }
+};
+
+export const signOut = () => {
+    return async (dispatch: any) => {
+        try {
+            await Api.signOut();
+            dispatch(clearAuthData());
+        } catch (error){}
     }
 };
 

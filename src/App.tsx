@@ -37,6 +37,10 @@ function App() {
                 currency: currency,
                 currency_status: "loaded"
             }));
+        } else {
+            dispatch(pushNewSettingsState({
+                currency_status: "loaded"
+            }));
         }
     };
 

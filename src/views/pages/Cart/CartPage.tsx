@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../redux/redux-store";
 import Container from "reactstrap/lib/Container";
@@ -18,13 +18,15 @@ export const CartPage = () => {
     const cart = useSelector((state: RootState) => state.cart);
     const currency = useSelector((state: RootState) => state.settings.currency);
 
+
     useEffect(() => {
+        if (cart.products.length === 0) return;
         dispatch(updateCart());
-    }, [currency]);
+    }, [cart.products.length, currency]);
 
     return (
-        <Container className="small">
-            <h3 className="mb-3">Cart</h3>
+        <Container className="width-md">
+            <h3 className="mb-3 text-center">Cart</h3>
             {cart.products.length === 0 ? (
                 <h4 style={{textAlign: 'center'}}>Cart is empty</h4>
             ) : (
