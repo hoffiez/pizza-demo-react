@@ -41,11 +41,11 @@ export const ProductCard = ({product}: IProductCard) => {
                 <Typography variant="body2" component="p">
                     {product.description !== null && truncateString(product.description, 100)}
                 </Typography>
-                <Typography variant="h5" component="div" className="mt-2">
+            </CardContent>
+            <CardActions className="flex-column">
+                <Typography variant="h5" component="div" className="mb-3">
                     {product.price} {Lang.currency[product.currency]}
                 </Typography>
-            </CardContent>
-            <CardActions>
                 <Button size="small"
                         variant="outlined"
                         color="secondary"
