@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'normalize.css';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import App from "./App";
@@ -8,6 +9,7 @@ import {Provider as ReduxProvider} from 'react-redux';
 import store from "./redux/redux-store";
 import {ThemeProvider} from '@material-ui/core/styles';
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import {SnackbarProvider} from "notistack";
 
 const theme = createMuiTheme({
     palette: {
@@ -15,7 +17,7 @@ const theme = createMuiTheme({
             main: '#ff6n735'
         },
         secondary: {
-            main: '#f44343'
+            main: '#f34104'
         },
     },
 });
@@ -23,11 +25,13 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
       <ThemeProvider theme={theme}>
-          <ReduxProvider store={store}>
-              <BrowserRouter>
-                    <App />
-              </BrowserRouter>
-          </ReduxProvider>
+          <SnackbarProvider maxSnack={2}>
+              <ReduxProvider store={store}>
+                  <BrowserRouter>
+                        <App />
+                  </BrowserRouter>
+              </ReduxProvider>
+          </SnackbarProvider>
       </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

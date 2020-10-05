@@ -9,18 +9,7 @@ import {truncateString} from "../../utils/Strings";
 import {useDispatch} from "react-redux";
 import {setItemQuantity} from "../../redux/cart-reducer";
 import {Lang} from "../../utils/Lang";
-
-const useStyles = makeStyles({
-    root: {
-        minWidth: 275,
-    },
-    title: {
-        fontSize: 14,
-    },
-    media: {
-        height: 140,
-    }
-});
+import {useSnackbar} from "notistack";
 
 
 interface IProductCard {
@@ -29,10 +18,14 @@ interface IProductCard {
 
 export const ProductCard = ({product}: IProductCard) => {
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleAddToCart = (product: IProduct) => {
         dispatch(setItemQuantity(product));
+
+        enqueueSnackbar(product.title + ' added to cart', {variant: 'success'});
     };
+
 
     return (
         <Card className={classes.root}>
