@@ -24,7 +24,8 @@ declare global {
 }
 
 window.axios = axios;
-window.axios.defaults.baseURL = "http://pizza.local/api/";
+//window.axios.defaults.baseURL = "http://pizza.local/api/";
+window.axios.defaults.baseURL = "http://apipizza.inyourinterests.ru/api/";
 
 function App() {
     const dispatch = useDispatch();

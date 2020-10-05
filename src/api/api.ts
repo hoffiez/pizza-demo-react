@@ -1,8 +1,6 @@
 import {ISignInCredentials} from "../interfaces/user";
 import axios from "axios";
 import {ICheckoutPostData} from "../interfaces/order";
-import {ICartState} from "../redux/cart-reducer";
-
 export const Api = {
     async getProducts(params?: any) {
         return await axios.get('/products', {
