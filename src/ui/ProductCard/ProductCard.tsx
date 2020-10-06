@@ -3,14 +3,12 @@ import {Card, CardActions, CardContent, CardMedia} from "@material-ui/core";
 import {IProduct} from "../../interfaces/product";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import {makeStyles} from "@material-ui/core/styles";
 import classes from "./ProductCard.module.scss";
 import {truncateString} from "../../utils/Strings";
 import {useDispatch} from "react-redux";
 import {setItemQuantity} from "../../redux/cart-reducer";
 import {Lang} from "../../utils/Lang";
 import {useSnackbar} from "notistack";
-
 
 interface IProductCard {
     product: IProduct

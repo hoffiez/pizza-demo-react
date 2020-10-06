@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../redux/redux-store";
 import Container from "reactstrap/lib/Container";
@@ -17,7 +17,6 @@ export const CartPage = () => {
 
     const cart = useSelector((state: RootState) => state.cart);
     const currency = useSelector((state: RootState) => state.settings.currency);
-
 
     useEffect(() => {
         if (cart.products.length === 0) return;

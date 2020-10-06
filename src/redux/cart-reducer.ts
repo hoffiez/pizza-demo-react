@@ -66,9 +66,12 @@ const cartReducer = (state: ICartState = initialCartState, action: AnyAction): I
                         newQuantity = item.quantity + 1;
                     }
 
-                    return {
-                        ...item,
-                        quantity: newQuantity
+                    //TODO: get max quantity from the server
+                    if (newQuantity <= 100) {
+                        return {
+                            ...item,
+                            quantity: newQuantity
+                        }
                     }
                 }
 
